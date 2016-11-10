@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.example.genkiplayer"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.REAL_GET_TASKS"/>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <!--Activities-->
+        <activity android:name="com.example.genkiplayer.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.contentdisplay.ContentActivity">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.kyouzai.FolderActivity">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.kyouzai.VideoActivity">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.kyouzai.AudioActivity">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.kyouzai.SlideActivity">
+        </activity>
+
+        <activity android:name="com.example.genkiplayer.kyouzai.FlashcardActivity">
+        </activity>
+
+        <!--Services-->
+        <service
+            android:name="com.example.genkiplayer.ZeroconfDiscoverService"
+            android:exported="false">
+        </service>
+        <service
+            android:name="com.example.genkiplayer.KeepRunningService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
+        <!--Receivers-->
+        <receiver
+            android:name="com.example.genkiplayer.AutostartAtBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">元気プレーヤー</string>
+    <string name="main_button_content_display">コンテンツディスプレイ</string>
+    <string name="main_button_preferences">設定</string>
+    <string name="pref_autostart_on_boot">自動軌道</string>
+    <string name="pref_device_name">デバイス名</string>
+    <string name="server_ip_address">サーバーのIPアドレス</string>
+    <string name="title_activity_settings">設定</string>
+    <string name="Preferences">設定</string>
+    <string name="custom_server_address">手動的にサーバーアドレスを指定</string>
+    <string name="server_port">サーバーのポート</string>
+    <string name="pref_use_custom_server_address">指定したサーバーアドレスを使用</string>
+    <string name="pref_launch_into_content_display">自動的にコンテンツディスプレイを起動</string>
+    <string name="pref_keep_app_running">アプリ常起動・閉じたら自動再起動</string>
+    <string name="error_could_not_play_audio_file">ファイルを再生できません</string>
+    <string name="noContentError">内容がありません</string>
+    <string name="an_error_occured">エラーが発生しました</string>
+</resources>

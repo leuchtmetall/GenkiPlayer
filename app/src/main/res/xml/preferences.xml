@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/Preferences">
+    <EditTextPreference
+        android:key="pref_device_name"
+        android:title="@string/pref_device_name"
+        android:defaultValue="Fire TV"
+        />
+    <CheckBoxPreference
+        android:key="pref_autostart_on_boot"
+        android:title="@string/pref_autostart_on_boot"
+        android:defaultValue="true"
+        />
+        <CheckBoxPreference
+            android:key="pref_launch_into_content_display"
+            android:title="@string/pref_launch_into_content_display"
+            android:defaultValue="false"
+            />
+        <CheckBoxPreference
+            android:key="pref_keep_app_running"
+            android:title="@string/pref_keep_app_running"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/custom_server_address">
+        <CheckBoxPreference
+            android:key="pref_use_custom_server_address"
+            android:title="@string/pref_use_custom_server_address"
+            android:defaultValue="false"/>
+        <EditTextPreference
+            android:key="pref_server_ip"
+            android:title="@string/server_ip_address"
+            android:defaultValue=""
+            android:inputType="numberDecimal"
+            android:digits="1234567890.:"
+            />
+        <EditTextPreference
+            android:key="pref_server_port"
+            android:title="@string/server_port"
+            android:defaultValue=""
+            android:inputType="number"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Reset">
+        <Preference android:title="Clear Caches"
+                    android:key="pref_clear_caches"
+                    android:summary="... summary"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

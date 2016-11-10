@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Genki Player</string>
+    <string name="pref_device_name">Device Name</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="main_button_preferences">Preferences</string>
+    <string name="main_button_content_display">Content Display</string>
+    <string name="pref_autostart_on_boot">Autostart on device startup</string>
+    <string name="server_ip_address">Server IP address</string>
+    <string name="Preferences">Preferences</string>
+    <string name="custom_server_address">Custom server address</string>
+    <string name="server_port">Server Port</string>
+    <string name="pref_use_custom_server_address">Use custom server Address</string>
+    <string name="pref_launch_into_content_display">Launch to content display</string>
+
+    <string name="media_toast_play" translatable="false">▶︎</string>
+    <string name="media_toast_rewind" translatable="false">◀︎◀︎︎</string>
+    <string name="media_toast_fast_forward" translatable="false">▶▶︎</string>
+    <string name="media_toast_pause" translatable="false">||︎</string>
+    <string name="pref_keep_app_running">Keep app running / restart app when closed</string>
+
+    <string name="back_button" translatable="false">⬅</string>
+    <string name="error_could_not_play_audio_file">could not play audio file</string>
+    <string name="zeroTime" translatable="false">00:00</string>
+    <string name="wrongButton" translatable="false">×</string>
+    <string name="rightButton" translatable="false">◯</string>
+    <string name="noContentError">content missing</string>
+    <string name="an_error_occured">an error occurred</string>
+
+</resources>
