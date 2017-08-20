@@ -1,5 +1,6 @@
 package com.example.genkiplayer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -9,10 +10,11 @@ import com.example.genkiplayer.util.ChallengeResponse;
 import com.example.genkiplayer.util.SlideshowTimings;
 import com.example.genkiplayer.util.Utils;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-public class MainConfig {
+public class MainConfig extends AppSecrets {
     // singleton
     private static final MainConfig ourInstance = new MainConfig();
     public static MainConfig getInstance() {
@@ -31,11 +33,6 @@ public class MainConfig {
     private static final String regularContentPath = "content_display_files";
     private static final String regularContentTempPath = "content_display_files_temp";
     private static final String[] contentDisplayFormats = {"pdf", "m4v"};
-
-    // secrets
-    private static final String deviceTokenSecret = "6^YqixUhrKrfi27";
-    private static final String serverAuthSecretPre = "98ba";
-    private static final String serverAuthSecretPost = "ccm2Y4oxAoP@Zr8";
 
     // fields
     private boolean mNeedsReload;
@@ -77,6 +74,10 @@ public class MainConfig {
     public void setAppContext(Context appContext) {
         if(appContext != null) {
             this.appContext = appContext;
+            if (this.browseCacheDir == null) {
+                File temp = appContext.getDir("browseCache", Activity.MODE_PRIVATE);
+                this.browseCacheDir = temp;
+            }
         } else {
             try {
                 throw new Exception("Trying to set App Context to null!");
@@ -84,6 +85,15 @@ public class MainConfig {
                 e.printStackTrace();
             }
         }
+    }
+
+    private File browseCacheDir = null;
+    public File getBrowseCacheDir() {
+        if(browseCacheDir == null) {
+            browseCacheDir = new File("");
+            browseCacheDir = appContext.getDir("browseCache", Activity.MODE_PRIVATE);
+        }
+        return browseCacheDir;
     }
 
     // TODO remember and try to reuse last valid server
@@ -206,6 +216,6 @@ public class MainConfig {
     }
 
     public Context getAppContext() {
-        return appContext;
+            return appContext;
     }
 }

@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.example.genkiplayer.MainConfig;
 import com.example.genkiplayer.R;
 import com.example.genkiplayer.util.Toaster;
-import com.example.genkiplayer.util.Utils;
 
 
 public class BrowseFragment extends Fragment implements BrowseItem.Callback {
@@ -139,9 +138,7 @@ public class BrowseFragment extends Fragment implements BrowseItem.Callback {
     }
 
     private void startAudioActivity(BrowseItem item, int index) {
-        String path = item.getFileUrlPaths().get(index);
-        String name = Utils.filenameWithoutExtension(item.getFiles().get(index));
-        Intent i = AudioActivity.newIntent(getActivity(), name, path);
+        Intent i = AudioActivity.newIntent(getActivity(), item.getPathUrl(), item.getFiles(), index);
         startActivity(i);
     }
 

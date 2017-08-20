@@ -17,6 +17,9 @@ public class FolderActivity extends TrackedActivity {
     public static final String PATH_EXTRA = "path";
     public static final String NAME_EXTRA = "name";
 
+    public static final String PLAYLIST_EXTRA = "playlist";
+    public static final String PLAYLIST_INDEX_EXTRA = "playlistIndex";
+
     public static Intent newIntent(Context context, String name, String path) {
         Bundle b = new Bundle();
         b.putString(FolderActivity.NAME_EXTRA, name);

@@ -113,9 +113,8 @@ public class PlaylistFragment extends DialogFragment {
     }
 
     private void startAudioActivity(int index) {
-        String path = mPath + "/" + Uri.encode(mFiles.get(index));
-        String name = Utils.filenameWithoutExtension(mFiles.get(index));
-        Intent i = AudioActivity.newIntent(getActivity(), name, path);
+        String path = mPath;
+        Intent i = AudioActivity.newIntent(getActivity(), path, mFiles, index);
         startActivity(i);
     }
 

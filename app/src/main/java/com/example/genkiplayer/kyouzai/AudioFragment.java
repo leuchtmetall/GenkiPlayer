@@ -17,20 +17,24 @@ import android.widget.TextView;
 
 import com.example.genkiplayer.R;
 import com.example.genkiplayer.util.KeyEventHandler;
+import com.example.genkiplayer.util.Utils;
 import com.semantive.waveformandroid.waveform.soundfile.CheapSoundFile;
 import com.semantive.waveformandroid.waveform.view.WaveformView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class AudioFragment extends Fragment implements KeyEventHandler {
-    private static final String ARG_NAME = "name";
     private static final String ARG_PATH = "path";
+    private static final String ARG_PLAYLIST = "playlist";
+    private static final String ARG_PLAYLIST_INDEX = "playlistIndex";
     private static final String TAG = "Audio Fragment";
 
-    private String name;
     private String path;
+    private ArrayList<String> playlist;
+    private int playlistIndex;
 
     private File audioFile;
 
@@ -40,6 +44,7 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
     private TextView mProgressText;
     private TextView mDurationText;
     private TextView mMessageTextView;
+    private TextView mTitleTexView;
     private WaveformView mWaveformView;
     private CheapSoundFile mSoundFile;
     private boolean ready = false;
@@ -48,11 +53,12 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
 
     public AudioFragment() { }
 
-    public static AudioFragment newInstance(String name, String path) {
+    public static AudioFragment newInstance(String path, ArrayList<String> playlist, int playlistIndex) {
         AudioFragment fragment = new AudioFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_NAME, name);
         args.putString(ARG_PATH, path);
+        args.putStringArrayList(ARG_PLAYLIST, playlist);
+        args.putInt(ARG_PLAYLIST_INDEX, playlistIndex);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +68,9 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
         super.onCreate(savedInstanceState);
         mHandler = new Handler();
         if (getArguments() != null) {
-            name = getArguments().getString(ARG_NAME);
             path = getArguments().getString(ARG_PATH);
+            playlist = getArguments().getStringArrayList(ARG_PLAYLIST);
+            playlistIndex = getArguments().getInt(ARG_PLAYLIST_INDEX);
         }
     }
 
@@ -77,18 +84,30 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mMessageTextView = (TextView) view.findViewById(R.id.messageText);
-        TextView textView = (TextView) view.findViewById(R.id.titleTextView);
-        textView.setText(name);
+        mTitleTexView = (TextView) view.findViewById(R.id.titleTextView);
+        initTitle();
         mWaveformView = (WaveformView) view.findViewById(R.id.waveform);
         mProgressText = (TextView) view.findViewById(R.id.progressText);
         mDurationText = (TextView) view.findViewById(R.id.durationText);
+    }
+
+    private void initTitle() {
+        mTitleTexView.setText(Utils.filenameWithoutExtension(playlist.get(playlistIndex)));
+    }
+
+    private String getFilePath() {
+        return path +"/" + Uri.encode(playlist.get(playlistIndex));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         mProgressBar.setVisibility(View.VISIBLE);
-        CacheManager.getInstance().getFile(path, new CacheManager.Callback() {
+        initAudioFile();
+    }
+
+    private void initAudioFile() {
+        CacheManager.getInstance().getFile(getFilePath(), new CacheManager.Callback() {
             @Override
             public void error(String description) {
                 // TODO handle error
@@ -141,6 +160,10 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
     @Override
     public void onStop() {
         super.onStop();
+        stopMediaPlayer();
+    }
+
+    private void stopMediaPlayer() {
         if(mUpdateSeekBarThread != null) {
             mUpdateSeekBarThread.interrupt();
             try {
@@ -152,7 +175,6 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
             mMediaPlayer.release();
         }
         mMediaPlayer = null;
-
     }
 
     Thread mUpdateSeekBarThread = null;
@@ -292,6 +314,23 @@ public class AudioFragment extends Fragment implements KeyEventHandler {
             case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
                 seek(2000);
                 break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                stopMediaPlayer();
+                playlistIndex = playlistIndex + 1;
+                if (playlistIndex == playlist.size()) {
+                    playlistIndex = 0;
+                }
+                initTitle();
+                initAudioFile();
+                 break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                stopMediaPlayer();
+                playlistIndex = playlistIndex - 1;
+                if (playlistIndex == 0) {
+                    playlistIndex = playlist.size() - 1;
+                }
+                initTitle();
+                initAudioFile();
         }
 
 

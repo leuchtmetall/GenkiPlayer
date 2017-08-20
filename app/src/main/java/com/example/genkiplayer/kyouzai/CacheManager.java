@@ -243,7 +243,7 @@ public class CacheManager {
             if(appContext == null) {
                 throw new NoAppContextException();
             }
-            mCachePath = appContext.getCacheDir();
+//            mCachePath = appContext.getCacheDir();
             mCachePath = appContext.getDir("data_cache", Context.MODE_PRIVATE);
         }
         return mCachePath;

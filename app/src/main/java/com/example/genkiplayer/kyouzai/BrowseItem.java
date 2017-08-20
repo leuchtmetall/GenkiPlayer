@@ -70,7 +70,7 @@ public class BrowseItem {
     }
 
     public File getCachefilePathForFilename(String filename) {
-        File dir = config.getAppContext().getDir("browseCache", Activity.MODE_PRIVATE); // TODO NullPointer
+        File dir = config.getBrowseCacheDir();
         File f = new File(dir, getUnescapedPath());
         f.mkdirs();
         return new File(f, filename);
@@ -177,7 +177,7 @@ public class BrowseItem {
                     keepTrying--;
                     try {
                         if(config.getServerIp() != null) {
-                            String url = MainConfig.getInstance().getServerBaseDataURL() + path;
+                            String url = config.getServerBaseDataURL() + path;
                             DownloadHelper dh = new DownloadHelper(url, true);
                             String json = dh.downloadToString();
                             Log.d(TAG, "Got Data: " + json);
